@@ -1,5 +1,6 @@
 package com.aeon.hadog.controller;
 
+import com.aeon.hadog.base.dto.comment.CommentDTO;
 import com.aeon.hadog.base.dto.response.ResponseDTO;
 import com.aeon.hadog.domain.ShelterPostComment;
 import com.aeon.hadog.service.ShelterPostCommentService;
@@ -23,16 +24,16 @@ public class CommentController {
     // 댓글 작성
     @PostMapping("/addComment")
     public ResponseEntity<ResponseDTO> addComment(@AuthenticationPrincipal String userId, @RequestParam Long postId, @RequestParam String content, @RequestParam(required = false) Long parentCommentId) {
-        commentService.addComment(postId, userId, content, parentCommentId);
+        CommentDTO commentDTO = commentService.addComment(postId, userId, content, parentCommentId);
         return ResponseEntity
                 .ok()
-                .body(new ResponseDTO(200, true, "댓글 작성 성공", content));
+                .body(new ResponseDTO(200, true, "댓글 작성 성공", commentDTO));
     }
 
     // 특정 게시글에 대한 댓글 조회
     @GetMapping("/comment/{postId}")
     ResponseEntity<ResponseDTO> getComments(@PathVariable Long postId) {
-        List<ShelterPostComment> comments = commentService.getCommentByShelterPostId(postId);
+        List<CommentDTO> comments = commentService.getCommentByShelterPostId(postId);
 
         return ResponseEntity
                 .ok()

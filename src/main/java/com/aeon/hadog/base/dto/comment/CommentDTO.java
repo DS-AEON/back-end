@@ -19,7 +19,7 @@ public class CommentDTO {
     private Long commentId;
 
     @NotNull
-    private Long shelterPostId;
+    private Long postId;
 
     @NotNull
     private String userId;
@@ -32,5 +32,5 @@ public class CommentDTO {
 
     private Long parentCommentId; // 부모 댓글
 
-    private List<ShelterPostComment> replies; // 대댓글 목록
+    private List<CommentDTO> replies; // 대댓글 목록
 }
